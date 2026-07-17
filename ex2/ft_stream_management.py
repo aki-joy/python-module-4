@@ -2,14 +2,16 @@ import sys
 import typing
 
 
-def read_file(args: list[str]) -> str:
+def read_file(args: list[str]) -> str | None:
 
     if len(args) < 2:
-        return print("Usage: ft_ancient_text.py <file>")
+        return print("Usage: ft_stream_management.py <file>")
 
     filename = args[1]
     file: typing.IO[str]
-    print(f"Accessing file {filename}")
+    print("=== Cyber Archives Recovery & Preservation ===")
+    print(f"Accessing file '{filename}'")
+    sys.stdout.flush()
 
     try:
         file = open(filename, "r")
@@ -19,11 +21,12 @@ def read_file(args: list[str]) -> str:
 
         file.close()
 
-        print(f"File {filename} closed.\n")
+        print(f"File '{filename}' closed.\n")
         return content
 
     except OSError as e:
-        sys.stderr.write(f"[STDERR]  Error opening file: {filename}: {e}")
+        sys.stderr.write(f"[STDERR] Error opening file '{filename}': {e}\n")
+        return None
 
 
 def write_file(content: str) -> None:
@@ -33,20 +36,24 @@ def write_file(content: str) -> None:
     for line in lines:
         new_content += line + "#\n"
 
-    print(f"Transform data\n---\n\n{new_content}\n---")
+    print(f"Transform data:\n---\n\n{new_content}\n---")
 
     new_filename = get_new_file()
     if new_filename == "":
         return print("Not saving data.")
+    print(f"Saving data to '{new_filename}'")
+    sys.stdout.flush()
     try:
         file = open(new_filename, "w")
-        print(f"Saving data to {new_filename}")
         file.write(new_content)
-        print(f"Data saved in file {new_filename}")
+        print(f"Data saved in file '{new_filename}'.")
         file.close()
 
     except Exception as e:
-        sys.stderr.write(f"[STDERR]  Error opening file: {new_filename}: {e}")
+        sys.stderr.write(
+            f"[STDERR] Error opening file '{new_filename}': {e}\n"
+        )
+        print("Data not saved.")
 
 
 def get_new_file() -> str:
@@ -55,11 +62,10 @@ def get_new_file() -> str:
     sys.stdout.flush()
     new_filename = sys.stdin.readline().rstrip("\n")
 
-    return new_filename 
+    return new_filename
 
 
 if __name__ == "__main__":
-    print("=== Cyber Archives Recovery ===")
     content = read_file(sys.argv)
 
     if content:

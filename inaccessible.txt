@@ -1,2 +1,0 @@
-This file should not be opend.
-It has to be denied.
