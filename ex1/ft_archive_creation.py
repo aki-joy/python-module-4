@@ -6,7 +6,7 @@ def read_file(args: list[str]) -> str:
 
     if len(args) < 2:
         return print("Usage: ft_ancient_text.py <file>")
-    
+
     filename = args[1]
     file: typing.IO[str]
     print(f"Accessing file {filename}")
@@ -46,12 +46,13 @@ def write_file(content: str) -> None:
         file.close()
 
     except Exception as e:
-         print(f"Error opening file: {new_filename}: {e}")
+        print(f"Error opening file: {new_filename}: {e}")
 
 
 def get_new_file() -> str:
     new_filename = input("Enter new file name (or empty): ")
     return new_filename
+
 
 if __name__ == "__main__":
     print("=== Cyber Archives Recovery ===")
