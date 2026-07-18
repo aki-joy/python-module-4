@@ -68,5 +68,5 @@ def get_new_file() -> str:
 if __name__ == "__main__":
     content = read_file(sys.argv)
 
-    if content:
+    if content is not None:
         write_file(content)

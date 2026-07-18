@@ -4,13 +4,16 @@ import typing
 
 def read_file(args: list[str]) -> None:
 
-    if len(args) < 2:
-        return print("Usage: ft_ancient_text.py <file>")
-    print("=== Cyber Archives Recovery ===")
-    for arg in args[1:]:
+    if len(args) != 2:
 
+        if len(args) > 2:
+            print("Too many arguments provided.")
+
+        return print("Usage: ft_ancient_text.py <file>")
+
+    else:
         file: typing.IO[str]
-        filename = arg
+        filename = args[1]
         print(f"Accessing file '{filename}'")
 
         try:
@@ -25,4 +28,5 @@ def read_file(args: list[str]) -> None:
 
 
 if __name__ == "__main__":
+    print("=== Cyber Archives Recovery ===")
     read_file(sys.argv)
