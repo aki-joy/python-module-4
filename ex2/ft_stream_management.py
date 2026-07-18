@@ -4,7 +4,10 @@ import typing
 
 def read_file(args: list[str]) -> str | None:
 
-    if len(args) < 2:
+    if len(args) != 2:
+        if len(args) > 2:
+            print("Too many arguments provided.")
+
         return print("Usage: ft_stream_management.py <file>")
 
     filename = args[1]
@@ -15,13 +18,15 @@ def read_file(args: list[str]) -> str | None:
 
     try:
         file = open(filename, "r")
-        content = file.read()
 
-        print(f"---\n\n{content}\n\n---")
-
-        file.close()
+        try:
+            content = file.read()
+            print(f"---\n\n{content}\n\n---")
+        finally:
+            file.close()
 
         print(f"File '{filename}' closed.\n")
+
         return content
 
     except OSError as e:
@@ -45,9 +50,13 @@ def write_file(content: str) -> None:
     sys.stdout.flush()
     try:
         file = open(new_filename, "w")
-        file.write(new_content)
+
+        try:
+            file.write(new_content)
+        finally:
+            file.close()
+
         print(f"Data saved in file '{new_filename}'.")
-        file.close()
 
     except Exception as e:
         sys.stderr.write(

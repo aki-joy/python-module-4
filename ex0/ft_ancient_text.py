@@ -18,9 +18,13 @@ def read_file(args: list[str]) -> None:
 
         try:
             file = open(filename, "r")
-            content = file.read()
-            print(f"---\n\n{content}\n\n---")
-            file.close()
+
+            try:
+                content = file.read()
+                print(f"---\n\n{content}\n\n---")
+            finally:
+                file.close()
+
             print(f"File '{filename}' closed.")
 
         except OSError as e:
